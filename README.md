@@ -22,7 +22,7 @@ Usage ssh-brancher (options) [HOST] ...args
 # login
 $ ssh-brancher -l app yourhypernode.hypernode.io
 1: yourhypernode-ephnmf3ai.hypernode.io
-Which Dutchlabelshop brancher do you want to connect to? [0 to exit, default 1]
+Which brancher do you want to connect to? [0 to exit, default 1]
 
 # ...
   /\  /\_   _ _ __   ___ _ __ _ __   ___   __| | ___
@@ -39,7 +39,7 @@ app@yourhypernode-ephnmf3ai.hypernode.io:~$  exit
 # direclty execute command
 $ ssh-brancher -l app yourhypernode.hypernode.io 'hypernode-systemctl settings'
 1: yourhypernode-ephnmf3ai.hypernode.io
-Which Dutchlabelshop brancher do you want to connect to? [0 to exit, default 1]
+Which brancher do you want to connect to? [0 to exit, default 1]
 
 usage: hypernode-systemctl settings php_version 7.1                                                      
                                                                                                          
