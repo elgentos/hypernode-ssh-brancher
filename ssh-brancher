@@ -1,0 +1,83 @@
+#!/bin/bash
+
+options=$(getopt -o i:p:l: -- "$@");
+eval set -- "$options";
+
+if [ $# -lt 1 ]; then
+    echo "Usage $(basename $0) (options) [HOST] ...args";
+    exit 1;
+fi
+
+while true; do
+    case $1 in
+        -l)
+            login=$2;
+            shift 2;;
+        -p)
+            port=$2;
+            shift 2;;
+        -i)
+            sshKey=$2;
+            shift 2;;
+        --)
+            shift;
+            break;;
+        *)
+            echo "Invalid option"
+            exit 1;;
+    esac
+done
+
+sshOpts=();
+if [ -n "${sshKey}" ]; then
+    sshOpts+=("-i ${sshKey}");
+fi
+if [ -n "${port}" ]; then
+    sshOpts+=("-p ${port}");
+fi
+if [ -n "${login}" ]; then
+    sshOpts+=("-l ${login}");
+fi
+
+if [ $# -lt 1 ]; then
+    echo "Usage $(basename $0) (options) [HOST] ...args";
+    exit 1;
+fi
+
+host=$1;
+shift;
+
+branchers=($(ssh ${sshOpts} ${host} 'hypernode-systemctl brancher --list | grep hypernode.io | awk "{ print \$6 }"'));
+
+if [ -z "${branchers}" ]; then
+    echo "No branchers found for ${host}";
+    exit 2;
+fi
+
+i=0;
+for b in ${branchers}; do
+   i=$[ $i + 1 ];
+   echo ${i}: ${b};
+done 
+
+echo "Which ${host} brancher do you want to connect to? [0 to exit, default $i]";
+
+read n;
+if [ -z "$n" ]; then 
+    n=$i;
+fi
+if [ $n -lt 1 ] || [ $n -gt $i ]; then
+    exit 3;
+fi
+
+i=$[ $i - 1 ];
+
+brancher=${branchers[$i]};
+
+if [ $# -lt 1 ]; then
+    ssh $sshOpts $brancher;
+    exit $?;
+fi
+
+ssh $sshOpts $brancher "$@";
+exit $?;
