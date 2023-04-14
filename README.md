@@ -10,7 +10,7 @@ We've builtin support for the following ssh options
 - `-p`: Alternative port number
 
 ## Installation
-Download `ssh-brancher` to a bin directory and give it execution permissions.
+Download [ssh-brancher](https://raw.githubusercontent.com/elgentos/hypernode-ssh-brancher/main/ssh-brancher) to a bin directory and give it execution permissions.
 
 ## Usage
 
