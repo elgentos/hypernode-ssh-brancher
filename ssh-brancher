@@ -54,8 +54,9 @@ if [ -z "${branchers}" ]; then
     exit 2;
 fi
 
+
 i=0;
-for b in ${branchers}; do
+for b in ${branchers[@]}; do
    i=$[ $i + 1 ];
    echo ${i}: ${b};
 done 
