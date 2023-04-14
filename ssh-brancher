@@ -71,9 +71,8 @@ if [ $n -lt 1 ] || [ $n -gt $i ]; then
     exit 3;
 fi
 
-i=$[ $i - 1 ];
-
-brancher=${branchers[$i]};
+n=$[ $n - 1 ];
+brancher=${branchers[$n]};
 
 if [ $# -lt 1 ]; then
     ssh $sshOpts $brancher;
